@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Card Snap</title>
+  <meta name="description" content="Photograph trading cards for eBay listings — front, back and all four corners.">
+  <meta name="theme-color" content="#111318">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Card Snap">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- HOME -->
+  <section id="home" class="screen active">
+    <header class="top">
+      <h1>Card Snap</h1>
+      <p class="sub">eBay-ready card photos: front, back &amp; corners</p>
+    </header>
+
+    <div class="panel">
+      <label for="cardName">Card name / SKU</label>
+      <input id="cardName" type="text" placeholder="e.g. Charizard 4-102 Base Set" autocomplete="off">
+
+      <div class="toggles">
+        <label class="switch"><input type="checkbox" id="optBack" checked> <span>Shoot the back too</span></label>
+        <label class="switch"><input type="checkbox" id="optCloseups"> <span>Add close-up shots of each corner</span></label>
+        <label class="switch"><input type="checkbox" id="optAuto" checked> <span>Auto-capture when the phone holds still</span></label>
+      </div>
+
+      <button id="startBtn" class="btn primary big">Start shooting</button>
+      <p class="hint">Tip: shoot on a plain dark background in bright, indirect light. For holos, tilt a little to kill glare.</p>
+    </div>
+
+    <div id="sessionWrap" class="panel hidden">
+      <div class="row between">
+        <h2>This session</h2>
+        <button id="zipAllBtn" class="btn small">Download all (.zip)</button>
+      </div>
+      <ul id="sessionList" class="cards"></ul>
+    </div>
+
+    <p id="installHint" class="hint center hidden"></p>
+  </section>
+
+  <!-- CAMERA -->
+  <section id="camera" class="screen">
+    <div id="stage">
+      <video id="video" playsinline muted autoplay></video>
+      <div id="shade"></div>
+      <div id="guide"><i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i></div>
+      <div id="stepLabel" class="pill"></div>
+      <div id="stepHelp" class="help"></div>
+      <div id="autoRing" class="hidden"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="16"/></svg><span>Hold still</span></div>
+      <div id="flash"></div>
+    </div>
+
+    <div id="controls">
+      <button id="camCancel" class="btn ghost">Cancel</button>
+      <button id="shutter" aria-label="Take photo"><span></span></button>
+      <div class="side">
+        <button id="torchBtn" class="btn ghost hidden" aria-label="Flashlight">Light</button>
+        <label class="btn ghost" id="nativeBtn">Phone cam<input id="nativeInput" type="file" accept="image/*" capture="environment" hidden></label>
+      </div>
+    </div>
+    <div id="zoomRow" class="hidden"><span>Zoom</span><input id="zoom" type="range"></div>
+    <p id="camError" class="err hidden"></p>
+  </section>
+
+  <!-- REVIEW -->
+  <section id="review" class="screen">
+    <header class="top row between">
+      <h2 id="reviewTitle">Review</h2>
+      <button id="reviewBack" class="btn ghost small">Home</button>
+    </header>
+    <div id="reviewGrid" class="grid"></div>
+    <div class="panel actions">
+      <button id="shareBtn" class="btn primary big">Save / Share photos</button>
+      <button id="zipBtn" class="btn big">Download .zip</button>
+      <button id="nextBtn" class="btn big">Next card &rarr;</button>
+    </div>
+  </section>
+
+  <canvas id="work" hidden></canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
